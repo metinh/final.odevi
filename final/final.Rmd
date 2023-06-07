@@ -250,7 +250,7 @@ Tüm değişkenlerin birbirine bağlılık derecesini daha net bir şekilde gör
 Çeşitli grafik yöntemleriyle de yapılan analizleri destekleyici ve göze hitabı arttırmayı sağlayalım.
  
 
-```{r echo=FALSE}
+```{r echo=FALSE, fig.height=10, fig.width=10}
 library(corrplot)
 corrplot(korelasyon_matris, method = 'circle')
 head(veri)
