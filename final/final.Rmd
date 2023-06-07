@@ -78,13 +78,15 @@ analiz ederek, hastaların kalp yetmezliğine bağlı olarak hayatta kalma veya 
 # Veri 
 2015 yılında toplanan Faysalabad Kardiyoloji Enstitüsü ve Faisalabad'daki (Pencap, Pakistan) Allied Hastanesinde toplanan 299 kalp yetmezliği hastasının tıbbi kayıtlarını içeren bir veri seti kullanılmıştır. Hastaların 105’i kadın, 194’ü erkek ve yaşları 40-95 arasında değişmektedir.
 
-#Veri R'a yüklenmiştir.
+`Veri R'a yüklenmiştir.`
+
 ```{r include=FALSE}
 veri=read.csv("C:/Users/ASUS/Desktop/heart_failure_clinical_records_dataset.csv")
 veri
 ```
 
-#Verideki değişkenlerin isimlerini değiştirelim
+`Verideki değişkenlerin isimlerini değiştirelim`
+
 ```{r echo=FALSE}
 names(veri)[1]="Yaş"
 names(veri)[2]="Anemi"
@@ -101,12 +103,14 @@ names(veri)[12]="Zaman"
 names(veri)[13]="ÖlÜm Olayı"
 ```
 
-#Betimsel istatistiklerini oluşturalım.
+`Betimsel istatistiklerini oluşturalım.`
+
 ```{r echo=FALSE}
 summary(veri)
 ```
 
-#Değişkenlerin standart sapmalarını hesaplıyalım.
+`Değişkenlerin standart sapmalarını hesaplıyalım.`
+
 ```{r echo=FALSE}
 sd(veri$Yaş)
 sd(veri$Anemi)
@@ -142,7 +146,8 @@ x=is.na(veri)
 summary(x)
 ```
 
-# Yöntem ve Veri Analizi
+` Yöntem ve Veri Analizi`
+
 Bir değişkeni çok fazla sayıda değişken bir araya gelerek o değişkeni etkileyebilmektedirler. Bu değişkenler aynı zamanda kendi aralarında da birbirlerini etkileyebilmektedir. Birden fazla bağımsız değişken kullanılarak yapılan regresyon analizine "çoklu regresyon analizi (multipleregression analysis)" adı verilmektedir. Çoklu doğrusal regresyon denklemi aşağıda verilmiştir.
 
 $$
@@ -153,7 +158,8 @@ $$
 
 Bu çalışmada çoklu doğrusal regresyon analizinden yardım alınmıştır. Çoklu Doğrusal Regresyonun amacı, amacımız olan ölüm olayı ile diğer faktörler arasındaki en iyi denklemi çıkarabilmektir.
 
-#Normallik testi
+`Normallik testi`
+
 Pek çok çalışmada normallik varsayımı kontrol edildikten sonra yapılacak analizlerin çeşitlerine karar verilir. Veri setinin normal dağılması durumunda dağılımın şekli simetrik bir çan eğrisine benzemektedir.
 
 Aşağıdaki verilerin normallik testinde çıkan değerleri verilmektedir.
@@ -178,7 +184,8 @@ shapiro.test(veri$`ÖlÜm Olayı`)
 
 Yukarıdaki verilen değerlere bakıldığında tüm değerler 0.05’ten küçüktür (p-value < 0.05). Bu değerler 0.05’ten küçük olduğundan H0 red edilemez. Yani Veriler Normal Dağılıma Sahiptir.
 
-#Korelasyon Matrisi oluşturalım
+`Korelasyon Matrisi oluşturalım`
+
 Korelasyon analizi, iki nicel değişken arasındaki doğrusal ilişkinin gücü ve yönü hakkında sayısal bilgi verir.
 
 Aşağıdaki verilerin korelasyon testinde çıkan değerleri vermektedir.
@@ -193,7 +200,8 @@ Korelasyon değeri eğer pozitif yönlü bir değer alırsa pozitif yönlü bir 
 
 Örneğin; Yaş ile Diyabet arasındaki korelasyon katsayısı -0.101012385 ≈0.10 olarak hesaplanmıştır. Yaş ile Diyabet arasında negatif düşük yönlü bir ilişki vardır.
 
-#Çoklu Doğrusal Regresyon
+`Çoklu Doğrusal Regresyon`
+
 R programlamada gerekli kodlar yazılarak sonuçlar görüntülenmiştir. Bu sonuçlar tablo haline getirilmiştir.Çoklu doğrusal regresyon analizinin sonuçları verilmiştir.
 
 
@@ -246,7 +254,8 @@ R2 yani çoklu belirtme katsayısı, bağımlı değişkendeki değişimin yüzd
 Tüm değişkenlerin birbirine bağlılık derecesini daha net bir şekilde görülebilir. Grafik üzerindeki koyu mavi noktalar güçlü pozitif korelasyonları, koyu kırmızı noktalar ise güçlü negatif korelasyonları göstermektedir. Diğer daireler de renklerine ve büyüklüklerine göre korelasyonun gücünü ve yönünü belirtmektedir.
 
 Örneğin; Ölüm Olayı ile zaman arasında negatif yüksek korelasyonlu bir ilişki vardır.
-#Korelasyon Grafiği
+`Korelasyon Grafiği`
+
 Çeşitli grafik yöntemleriyle de yapılan analizleri destekleyici ve göze hitabı arttırmayı sağlayalım.
  
 
@@ -260,8 +269,11 @@ str(veri)
 
 Örneğin; Ölüm Olayı ile zaman arasında negatif yüksek korelasyonlu bir ilişki vardır.
 
-#Yaş Histogram Grafiği
-```{r echo=FALSE}
+
+
+`Histogram grafikleri`
+
+```{r echo=FALSE, fig.height=3, fig.width=3}
 hist(veri$Yaş,
      breaks = 30,
      xlim = c(0, 5000),
@@ -271,10 +283,7 @@ hist(veri$Yaş,
      xlab = "Yaş",
      ylab = "Frekans",
      main = "weightlbs icin Histogram")
-```
 
-#Kreatinin Fosfokinaz Histogram Grafiği
-```{r echo=FALSE}
 hist(veri$`Kreatinin Fosfokinaz`,
      breaks = 30,
      xlim = c(0, 5000),
@@ -284,10 +293,7 @@ hist(veri$`Kreatinin Fosfokinaz`,
      xlab = "Kreatinin Fosfokinaz",
      ylab = "Frekans",
      main = "weightlbs icin Histogram")
-```
 
-#Enjeksiyon Fraksiyonu Histogram Grafiği
-```{r echo=FALSE}
 hist(veri$`Enjeksiyon Fraksiyonu`,
      breaks = 30,
      xlim = c(0, 5000),
@@ -297,10 +303,7 @@ hist(veri$`Enjeksiyon Fraksiyonu`,
      xlab = "Enjeksiyon Fraksiyonu",
      ylab = "Frekans",
      main = "weightlbs icin Histogram")
-```
 
-#Zaman Histogram Grafiği
-```{r echo=FALSE}
 hist(veri$Zaman,
      breaks = 30,
      xlim = c(0, 5000),
@@ -315,51 +318,36 @@ hist(veri$Zaman,
 
 R programında farklı histogram kodu kullanılarak çıkartılmıştır.
 
-#Ölüm Olayı Histogram Grafiği
-```{r echo=FALSE}
+
+```{r echo=FALSE, fig.height=3, fig.width=3}
 hist(veri$`ÖlÜm Olayı`, main = "ÖlÜm Olayı", xlab = "ÖlÜm Olayı", ylab = "Frekans")
-```
 
-#Cinsiyet Histogram Grafiği
-```{r echo=FALSE}
 hist(veri$Cinsiyet, main = "Cinsiyet", xlab = "Cinsiyet", ylab = "Frekans")
-```
 
-#Kreatinin Fosfokinaz Histogram Grafiği
-```{r echo=FALSE}
 hist(veri$`Kreatinin Fosfokinaz`, main = "Kreatinin Fosfokinaz", xlab = "Kreatinin Fosfokinaz", ylab = "Frekans")
-```
 
-#Yaş Histogram Grafiği
-```{r echo=FALSE}
 hist(veri$Yaş, main = "Yaş", xlab = "Yaş", ylab = "Frekans")
-```
 
-#Enjeksiyon Fraksiyonu Histogram Grafiği
-```{r echo=FALSE}
 hist(veri$`Enjeksiyon Fraksiyonu`, main = "Enjeksiyon Fraksiyonu", xlab = "Enjeksiyon Fraksiyonu", ylab = "Frekans")
 ```
 
 Histogram grafikleri bize ortalama, standart sapma ve örneklem sayısı hakkında bilgi veren bir grafiktir. Verilerin dağılımları hakkında da ön bilgi oluşturabilir.
 
 
+`Dağılım grafikleri`
 
-#Zaman Dağılım Grafiği
-```{r echo=FALSE}
+
+```{r echo=FALSE, fig.height=3, fig.width=3}
 plot(veri$Zaman,veri$Diyabet ,col="red",main = "Zaman - Diyabet", xlab = "Zaman", ylab = "Diyabet", pch=15)
-```
 
-#Cinsiyet - Kreatinin Fosfokinaz Dağılım Grafiği
-```{r echo=FALSE}
 plot(veri$Cinsiyet,veri$`Kreatinin Fosfokinaz` ,col="yellow",main = "Cinsiyet - Kreatinin Fosfokinaz", xlab = "Cinsiyet", ylab = "Kreatinin Fosfokina", pch=15)
-```
 
-#Yaş - Serum Sodyum Dağılım Grafiği
-```{r echo=FALSE}
 plot(veri$Yaş,veri$`Serum Sodyum` ,col="green",main = "Yaş - Serum Sodyum", xlab = "Yaş", ylab = "Serum Sodyum", pch=15)
 ```
 
-#Kutu grafiği
+
+`Kutu grafiği`
+
 ```{r echo=FALSE}
 boxplot(veri)
 ```
